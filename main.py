@@ -21,6 +21,11 @@ try:
 except FileNotFoundError:
     user_progress = {}
 
+try:
+    with open("chapter_order.txt", "r") as f:
+        chapter_order = [line.strip() for line in f.readlines()]
+except FileNotFoundError:
+    chapter_order = []
 
 def run_user_code(challenge_dir, input_value=""):
     solution_path = os.path.join(challenge_dir, "solution.py")
@@ -37,16 +42,19 @@ def run_user_code(challenge_dir, input_value=""):
         result = runner.run(suite)
         return result.wasSuccessful()
     else:
-        # Run user code and check against expected outputs
-        proc = subprocess.Popen(
-            ["python", solution_path],
-            stdin=subprocess.PIPE,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            universal_newlines=True
-        )
-        stdout, stderr = proc.communicate(input=input_value)
-        return stdout.strip(), stderr.strip()
+        try:
+            proc = subprocess.Popen(
+                ["python3", solution_path],
+                stdin=subprocess.PIPE,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                universal_newlines=True
+            )
+            stdout, stderr = proc.communicate(input=input_value)
+            return stdout.strip(), stderr.strip()
+        except Exception as e:
+            print(f"{Fore.RED}Error: {e}{Style.RESET_ALL}")
+            return None, None
 
 
 class TestChallenge(unittest.TestCase):
@@ -66,11 +74,19 @@ class TestChallenge(unittest.TestCase):
                         difficulty_level = challenge.get("difficulty_level", "Intermediate")
                         chapters[chapter_name].setdefault(difficulty_level, []).append(challenge_name)
 
+        # Sort chapters based on the order in chapter_order.txt
+        sorted_chapters = OrderedDict()
+        for chapter_name in chapter_order:
+            if chapter_name in chapters:
+                sorted_chapters[chapter_name] = chapters[chapter_name]
+        for chapter_name in set(chapters.keys()) - set(chapter_order):
+            sorted_chapters[chapter_name] = chapters[chapter_name]
+
         while True:
             print("\nAvailable Chapters:")
-            for i, chapter_name in enumerate(chapters.keys(), start=1):
+            for i, chapter_name in enumerate(sorted_chapters.keys(), start=1):
                 challenge_names = []
-                for difficulty_level, names in chapters[chapter_name].items():
+                for difficulty_level, names in sorted_chapters[chapter_name].items():
                     challenge_names.extend(names)
                 solved_challenges = sum(1 for challenge_name in challenge_names if challenge_name in user_progress)
                 total_challenges = len(challenge_names)
@@ -155,7 +171,7 @@ class TestChallenge(unittest.TestCase):
                                             # Non-OOP challenge with expected outputs
                                             user_output, error = user_output
                                             if error:
-                                                print(f"Error: {error}")
+                                                print(f"{Fore.RED}Error: {error}{Style.RESET_ALL}")
                                             else:
                                                 for test_case in challenge["test_cases"]:
                                                     print(f"Input: {test_case['input']}")
@@ -163,9 +179,9 @@ class TestChallenge(unittest.TestCase):
                                                     print(f"Expected Output: {test_case['expected_output']}")
                                                     self.assertEqual(user_output, test_case["expected_output"])
 
-                                        user_progress[challenge_name] = True
-                                        with open("progress.json", "w") as f:
-                                            json.dump(user_progress, f)
+                                                user_progress[challenge_name] = True
+                                                with open("progress.json", "w") as f:
+                                                    json.dump(user_progress, f)
 
                                         challenge_found = True
                                         break

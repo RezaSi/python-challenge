@@ -1,0 +1,5 @@
+{
+    "description": "Create a ParkingLot class to manage parking spaces and vehicles. The class should have methods to park a vehicle, remove a vehicle, and get the status of the parking lot (available spaces and parked vehicles).",
+    "difficulty_level": "Intermediate",
+    "name": "Parking Lot Management"
+}
