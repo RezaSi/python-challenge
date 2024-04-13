@@ -1,0 +1,5 @@
+{
+    "description": "Create a BankAccount class with methods to deposit, withdraw, and check the balance.",
+    "difficulty_level": "Intermediate",
+    "name": "Bank Account"
+}
