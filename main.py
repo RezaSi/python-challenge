@@ -107,17 +107,17 @@ class TestChallenge(unittest.TestCase):
 
             try:
                 chapter_index = int(choice) - 1
-                if 0 <= chapter_index < len(chapters):
-                    chapter_name = list(chapters.keys())[chapter_index]
-                    print(f"\nChapter: {chapter_name}")
+                if 0 <= chapter_index < len(sorted_chapters):
+                    selected_chapter_name = list(sorted_chapters.keys())[chapter_index]
+                    print(f"\nChapter: {selected_chapter_name}")
 
-                    challenge_dirs = chapters[chapter_name]
+                    challenge_dirs = sorted_chapters[selected_chapter_name]
                     while True:
                         print("\nAvailable Challenges:")
                         for difficulty_level, challenge_names in challenge_dirs.items():
                             print(f"\n{difficulty_level}:")
                             for i, challenge_name in enumerate(challenge_names, start=1):
-                                challenge_dir = os.path.join(challenges_dir, chapter_name, challenge_name)
+                                challenge_dir = os.path.join(challenges_dir, selected_chapter_name, challenge_name)
                                 status = (
                                     f"{Fore.GREEN}Solved{Style.RESET_ALL}"
                                     if challenge_name in user_progress
@@ -136,7 +136,7 @@ class TestChallenge(unittest.TestCase):
                             for difficulty_level, challenge_names in challenge_dirs.items():
                                 if 0 <= challenge_index < len(challenge_names):
                                     challenge_name = challenge_names[challenge_index]
-                                    challenge_dir = os.path.join(challenges_dir, chapter_name, challenge_name)
+                                    challenge_dir = os.path.join(challenges_dir, selected_chapter_name, challenge_name)
                                     if os.path.isdir(challenge_dir):
                                         with open(os.path.join(challenge_dir, "challenge.json"), "r") as f:
                                             challenge = json.load(f)
