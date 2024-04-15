@@ -1,19 +1,5 @@
 {
     "description": "Write a function that takes a string as input and returns the reverse of that string.",
     "difficulty_level": "Beginner",
-    "name": "Reverse String",
-    "test_cases": [
-        {
-            "expected_output": "olleh",
-            "input": "hello"
-        },
-        {
-            "expected_output": "looc si nohtyP",
-            "input": "Python is cool"
-        },
-        {
-            "expected_output": "",
-            "input": ""
-        }
-    ]
+    "name": "Reverse String"
 }

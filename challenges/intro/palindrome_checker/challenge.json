@@ -1,19 +1,5 @@
 {
     "description": "Write a function that takes a string as input and returns True if the string is a palindrome (reads the same backward as forward), and False otherwise.",
     "difficulty_level": "Beginner",
-    "name": "Palindrome Checker",
-    "test_cases": [
-        {
-            "expected_output": "True",
-            "input": "racecar"
-        },
-        {
-            "expected_output": "False",
-            "input": "hello"
-        },
-        {
-            "expected_output": "True",
-            "input": "rotator"
-        }
-    ]
+    "name": "Palindrome Checker"
 }

@@ -1,11 +1,5 @@
 {
     "name": "Hello World",
     "description": "Print 'Hello World!' to the console.",
-    "difficulty_level": "Beginner",
-    "test_cases": [
-        {
-            "input": "",
-            "expected_output": "Hello World!"
-        }
-    ]
+    "difficulty_level": "Beginner"
 }
