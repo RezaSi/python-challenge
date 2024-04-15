@@ -56,7 +56,6 @@ def run_user_code(challenge_dir, input_value=""):
             print(f"{Fore.RED}Error: {e}{Style.RESET_ALL}")
             return None, None
 
-
 class TestChallenge(unittest.TestCase):
     def test_challenges(self):
         challenges_dir = "challenges"
@@ -163,6 +162,7 @@ class TestChallenge(unittest.TestCase):
                                             # OOP challenge with unit tests
                                             if user_output:
                                                 print(f"{Fore.GREEN}All tests passed!{Style.RESET_ALL}")
+                                                user_progress[challenge_name] = True
                                             else:
                                                 print(f"{Fore.RED}Some tests failed.{Style.RESET_ALL}")
 
@@ -180,8 +180,10 @@ class TestChallenge(unittest.TestCase):
                                                     self.assertEqual(user_output, test_case["expected_output"])
 
                                                 user_progress[challenge_name] = True
-                                                with open("progress.json", "w") as f:
-                                                    json.dump(user_progress, f)
+
+                                        if user_progress[challenge_name]:
+                                            with open("progress.json", "w") as f:
+                                                json.dump(user_progress, f)
 
                                         challenge_found = True
                                         break

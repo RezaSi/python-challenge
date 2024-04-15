@@ -1,0 +1,5 @@
+{
+    "name": "Async File Download",
+    "description": "Write an asynchronous function that downloads a file from a given URL and saves it to disk. The function should take the URL and the file path as arguments and return the total time taken to download the file.",
+    "difficulty_level": "Intermediate"
+}

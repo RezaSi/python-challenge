@@ -1,0 +1,5 @@
+{
+    "name": "Async Task Manager",
+    "description": "Create an asynchronous task manager that can execute multiple tasks concurrently. The task manager should have methods to add tasks, cancel tasks, and get the results of completed tasks. Each task should be a coroutine function that performs some operation and returns a result.",
+    "difficulty_level": "Intermediate"
+}
