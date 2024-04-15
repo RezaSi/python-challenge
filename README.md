@@ -2,6 +2,8 @@
 
 This is a terminal-based Python challenge that guides you through various coding challenges from beginner to advanced level. The challenges are organized into chapters, and each chapter contains challenges sorted by difficulty level.
 
+![ScreenCast](screen_cast.gif)
+
 ## Features
 
 - Colorized output for solved and unsolved challenges
